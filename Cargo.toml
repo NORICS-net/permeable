@@ -1,0 +1,13 @@
+[package]
+name = "permeable"
+version = "0.1.0"
+edition = "2021"
+description = "A permission-demand trait. Decouples the permission-demander from the permission / auth provider."
+
+repository = "https://github.com/NORICS-net/permeable"
+authors = ["Micha Glave <coding@migmedia.de>"]
+license = "MIT/Apache-2.0"
+readme = "README.md"
+categories = ["permission", "trait"]
+keywords = ["permissions", "authorization", "policy"]
+
