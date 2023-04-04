@@ -7,35 +7,41 @@ Permeable is a permission-demand trait. It helps to decouple the permission-dema
 use permeable::{Permeable, PermissionError};
 
 #[allow(dead_code)]
-#[derive(Debug, Eq, PartialEq)]
-enum Permissions {
+#[derive(Copy, Clone, Debug, Eq, PartialEq)]
+enum Permission {
     RoThis,
     RwThis,
     AccessThat,
 }
 
-struct Perm;
+struct User {
+    name: String
+}
 
-impl Permeable<&str, Permissions> for Perm {
-    fn has_perm(&self, user: &str, permission: &Permissions) -> Result<(), PermissionError> {
-        use Permissions::*;
-        match (user, permission) {
+// A naive implementation of a the Permeable-Trait.
+impl Permeable for User {
+    type Perm = Permission;
+    fn has_perm(&self, permission: impl Into<Permission>) -> Result<(), PermissionError> {
+        use Permission::*;
+        match (self.name.as_str(), permission.into()) {
             ("admin", _) => Ok(()),
-            ("peter", &AccessThat) => Ok(()),
-            ("peter", &RoThis) => Ok(()),
-            ("paul", &RoThis) => Ok(()),
-            ("paul", &RwThis) => Ok(()),
-            _ => Err(PermissionError::denied(format!("{permission:?}"), "moduleName")),
+            ("peter", AccessThat) => Ok(()),
+            ("peter", RoThis) => Ok(()),
+            ("paul", RoThis) => Ok(()),
+            ("paul", RwThis) => Ok(()),
+            // catch all
+            (_, perm) => Err(PermissionError::denied(format!("{perm:?}"), &self.name)),
         }
     }
 }
 
-use Permissions::*;
+use Permission::*;
 
 fn main() {
-    let perm = Perm;
-    assert_eq!(Ok(()), perm.has_perm("admin", &RwThis));
-    assert_eq!(Ok(()), perm.has_perm("peter", &AccessThat));
-    assert!(perm.has_perm("peter", &RwThis).is_err());
+    let admin = User { name: String::from("admin") };
+    assert_eq!(admin.has_perm(RwThis), Ok(()));
+    let peter = User { name: String::from("peter") };
+    assert_eq!(peter.has_perm(AccessThat), Ok(()));
+    assert_eq!(peter.has_perm(RwThis).is_err(), true);
 }
 ```
