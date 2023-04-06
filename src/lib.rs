@@ -4,17 +4,16 @@ pub use perm_err::PermissionError;
 
 mod perm_err;
 ///
-/// Trait to be implemented by a permission-provider.
-///  *  `User` - in the simplest version a `&str`.
-///  *  `Perm` - identifier of a permission, eg. `enum` or `String`.
+/// Simplest possible Trait to ask for permission. Can be implemented by a permission-provider
+/// distinguishing between users.
 ///
 /// # Example
 /// ```
 /// use permeable::{Permeable, PermissionError};
 ///
-/// const RoThis : &str = "RoThis";
-/// const RwThis : &str = "RwThis";
-/// const AccessThat : &str = "AccessThat";
+/// const RO_THIS : &str = "RoThis";
+/// const RW_THIS : &str = "RwThis";
+/// const ACCESS_THAT : &str = "AccessThat";
 ///
 /// struct User {
 ///     name: String,
@@ -26,24 +25,25 @@ mod perm_err;
 ///     fn has_perm(&self, permission: &str) -> Result<(), PermissionError>{
 ///         match (self.name.as_str(), permission) {
 ///             ("admin", _) => Ok(()),
-///             ("peter", AccessThat) => Ok(()),
-///             ("peter", RoThis) => Ok(()),
-///             ("paul", RoThis) => Ok(()),
-///             ("paul", RwThis) => Ok(()),
+///             ("peter", ACCESS_THAT) => Ok(()),
+///             ("peter", RO_THIS) => Ok(()),
+///             ("paul", RO_THIS) => Ok(()),
+///             ("paul", RW_THIS) => Ok(()),
 ///             // catch all
-///             (_, perm) => Err(PermissionError::denied(format!("{perm:?}"), &self.name)),
+///             (_, perm) => Err(PermissionError::denied(format!("{permission:?}"), &self.name)),
 ///         }
 ///     }
 /// }
 ///
 /// let admin = User { name: String::from("admin") };
-/// assert_eq!(admin.has_perm(RwThis), Ok(()));
+/// assert_eq!(admin.has_perm(RW_THIS), Ok(()));
 /// let peter = User { name: String::from("peter") };
-/// assert_eq!(peter.has_perm(AccessThat), Ok(()));
-/// assert_eq!(peter.has_perm(RwThis).is_err(), true);
+/// assert_eq!(peter.has_perm(ACCESS_THAT), Ok(()));
+/// assert_eq!(peter.has_perm(RW_THIS).is_err(), true);
 /// ```
 pub trait Permeable {
-    /// Returns `Result::Ok(())` if the given `user` has the given `permission`.
+    /// Returns `Result::Ok(())` if the given `permission` is granted or a
+    /// [PermissionError](./enum.PermissionError.html)
     #[allow(unused)]
     fn has_perm(&self, permission: &str) -> Result<(), PermissionError>;
 }
