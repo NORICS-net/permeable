@@ -12,13 +12,9 @@ mod perm_err;
 /// ```
 /// use permeable::{Permeable, PermissionError};
 ///
-/// #[allow(dead_code)]
-/// #[derive(Copy, Clone, Debug, Eq, PartialEq)]
-/// enum Permission {
-///     RoThis,
-///     RwThis,
-///     AccessThat,
-/// }
+/// const RoThis : &str = "RoThis";
+/// const RwThis : &str = "RwThis";
+/// const AccessThat : &str = "AccessThat";
 ///
 /// struct User {
 ///     name: String,
@@ -26,10 +22,9 @@ mod perm_err;
 ///
 /// // A naive implementation of a the Permeable-Trait.
 /// impl Permeable for User {
-///     type Perm = Permission;
-///     fn has_perm(&self, permission: impl Into<Permission>) -> Result<(), PermissionError> {
-///         use Permission::*;
-///         match (self.name.as_str(), permission.into()) {
+///
+///     fn has_perm(&self, permission: &str) -> Result<(), PermissionError>{
+///         match (self.name.as_str(), permission) {
 ///             ("admin", _) => Ok(()),
 ///             ("peter", AccessThat) => Ok(()),
 ///             ("peter", RoThis) => Ok(()),
@@ -41,16 +36,14 @@ mod perm_err;
 ///     }
 /// }
 ///
-/// use Permission::*;
 /// let admin = User { name: String::from("admin") };
 /// assert_eq!(admin.has_perm(RwThis), Ok(()));
 /// let peter = User { name: String::from("peter") };
 /// assert_eq!(peter.has_perm(AccessThat), Ok(()));
 /// assert_eq!(peter.has_perm(RwThis).is_err(), true);
 /// ```
-pub trait Permeable: Sync + Send {
-    type Perm;
+pub trait Permeable {
     /// Returns `Result::Ok(())` if the given `user` has the given `permission`.
     #[allow(unused)]
-    fn has_perm(&self, permission: impl Into<Self::Perm>) -> Result<(), PermissionError>;
+    fn has_perm(&self, permission: &str) -> Result<(), PermissionError>;
 }
