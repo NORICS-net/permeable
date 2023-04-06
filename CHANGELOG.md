@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 <csr-read-only-do-not-edit/>
 
- - 1 commit contributed to the release.
+ - 2 commits contributed to the release over the course of 1 calendar day.
  - 1 day passed between releases.
  - 0 commits were understood as [conventional](https://www.conventionalcommits.org).
  - 0 issues like '(#ID)' were seen in commit messages
@@ -23,7 +23,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 <details><summary>view details</summary>
 
  * **Uncategorized**
-    - Making trait simpler: permission is now `&str`. ([`8ec32be`](https://github.com/NORICS-net/permeable/commit/8ec32be3790c255e70888cc5154194a2d56a5e64))
+    - Making trait simpler: permission is now `&str`. ([`c67696a`](https://github.com/NORICS-net/permeable/commit/c67696a17dfd29438321b7b2e309a0fccd53bb62))
+    - Create .github/workflows/rust.yml ([`d612e2c`](https://github.com/NORICS-net/permeable/commit/d612e2c9b1c7ac6046e6c7ff05558b687825139c))
 </details>
 
 ## 0.2.0 (2023-04-04)
