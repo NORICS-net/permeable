@@ -5,13 +5,54 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 0.3.2 (2023-12-07)
+
+### Commit Statistics
+
+<csr-read-only-do-not-edit/>
+
+ - 1 commit contributed to the release.
+ - 245 days passed between releases.
+ - 0 commits were understood as [conventional](https://www.conventionalcommits.org).
+ - 0 issues like '(#ID)' were seen in commit messages
+
+### Commit Details
+
+<csr-read-only-do-not-edit/>
+
+<details><summary>view details</summary>
+
+ * **Uncategorized**
+    - Adding AllowAllPermission and DenyAllPermission. ([`8cca039`](https://github.com/NORICS-net/permeable/commit/8cca03938638c58d97662c361ab2252988a6e367))
+</details>
+
+## 0.3.1 (2023-04-06)
+
+### Commit Statistics
+
+<csr-read-only-do-not-edit/>
+
+ - 1 commit contributed to the release.
+ - 0 commits were understood as [conventional](https://www.conventionalcommits.org).
+ - 0 issues like '(#ID)' were seen in commit messages
+
+### Commit Details
+
+<csr-read-only-do-not-edit/>
+
+<details><summary>view details</summary>
+
+ * **Uncategorized**
+    - Updated documentation. ([`0c770d8`](https://github.com/NORICS-net/permeable/commit/0c770d818c4540c8f23389ef6f7e337eece1b31b))
+</details>
+
 ## 0.3.0 (2023-04-06)
 
 ### Commit Statistics
 
 <csr-read-only-do-not-edit/>
 
- - 2 commits contributed to the release over the course of 1 calendar day.
+ - 3 commits contributed to the release over the course of 1 calendar day.
  - 1 day passed between releases.
  - 0 commits were understood as [conventional](https://www.conventionalcommits.org).
  - 0 issues like '(#ID)' were seen in commit messages
@@ -23,6 +64,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 <details><summary>view details</summary>
 
  * **Uncategorized**
+    - Adjusting changelogs prior to release of permeable v0.3.0 ([`74579ec`](https://github.com/NORICS-net/permeable/commit/74579eca5c523259f014e8e94d13ba40e76716a3))
     - Making trait simpler: permission is now `&str`. ([`c67696a`](https://github.com/NORICS-net/permeable/commit/c67696a17dfd29438321b7b2e309a0fccd53bb62))
     - Create .github/workflows/rust.yml ([`d612e2c`](https://github.com/NORICS-net/permeable/commit/d612e2c9b1c7ac6046e6c7ff05558b687825139c))
 </details>
