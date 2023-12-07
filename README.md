@@ -28,7 +28,7 @@ impl Permeable for User {
             ("paul", RO_THIS) => Ok(()),
             ("paul", RW_THIS) => Ok(()),
             // catch all
-            (_, perm) => Err(PermissionError::denied(format!("{permission}"), &self.name)),
+            (_, perm) => Err(PermissionError::denied(permission, &self.name)),
         }
     }
 }

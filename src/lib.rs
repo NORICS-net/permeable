@@ -8,7 +8,7 @@ mod perm_err;
 /// distinguishing between users.
 ///
 /// # Example
-/// ```
+/// ```rust
 /// use permeable::{Permeable, PermissionError};
 ///
 /// const RO_THIS : &str = "RoThis";
@@ -30,7 +30,7 @@ mod perm_err;
 ///             ("paul", RO_THIS) => Ok(()),
 ///             ("paul", RW_THIS) => Ok(()),
 ///             // catch all
-///             (_, perm) => Err(PermissionError::denied(format!("{permission:?}"), &self.name)),
+///             (_, perm) => Err(PermissionError::denied(permission, &self.name)),
 ///         }
 ///     }
 /// }
@@ -42,8 +42,29 @@ mod perm_err;
 /// assert_eq!(peter.has_perm(RW_THIS).is_err(), true);
 /// ```
 pub trait Permeable {
-    /// Returns `Result::Ok(())` if the given `permission` is granted or a
-    /// [PermissionError](./enum.PermissionError.html)
+    /// Returns `Result::Ok(())` if the given `permission` is granted.
+    ///
+    /// # Errors
+    /// if the `permission` is not granted or unknown it returns a
+    /// [`PermissionError`](./enum.PermissionError.html).
     #[allow(unused)]
     fn has_perm(&self, permission: &str) -> Result<(), PermissionError>;
+}
+
+/// A everything-allow `Permeable`. For testing-purposes.
+pub struct AllowAllPermission();
+
+impl Permeable for AllowAllPermission {
+    fn has_perm(&self, _permission: &str) -> Result<(), PermissionError> {
+        Ok(())
+    }
+}
+
+/// A everything-deny `Permeable`. For testing-purposes.
+pub struct DenyAllPermission();
+
+impl Permeable for DenyAllPermission {
+    fn has_perm(&self, permission: &str) -> Result<(), PermissionError> {
+        Err(PermissionError::denied(permission, "DenyAllPermission"))
+    }
 }
